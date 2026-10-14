@@ -1,0 +1,44 @@
+source:
+  single: runs/20261013-223427-053861/source/single/m256/seed41/weights/source_projector/lettuce/dino_register/source_single_m256/source_projector__mode=single__dataset=lettuce__encoder=dino_register__fd=768__m=256__seed=41.pth
+  multi: runs/20261013-223427-053861/source/multi/m256/seed43/weights/source_projector/lettuce/dino_register/source_multi_m256/source_projector__mode=multi__dataset=lettuce__encoder=dino_register__fd=768__m=256__seed=43.pth
+  scaling: runs/20261013-223427-053861/scaling/checkpoints
+  single_runs: runs/20261013-223427-053861/source/single/m{hidden_dim}/seed{seed}/weights/source_projector/lettuce/dino_register/source_single_m{hidden_dim}/source_projector__mode=single__dataset=lettuce__encoder=dino_register__fd=768__m={hidden_dim}__seed={seed}.pth
+  multi_runs: runs/20261013-223427-053861/source/multi/m{hidden_dim}/seed{seed}/weights/source_projector/lettuce/dino_register/source_multi_m{hidden_dim}/source_projector__mode=multi__dataset=lettuce__encoder=dino_register__fd=768__m={hidden_dim}__seed={seed}.pth
+Tomato:
+  single_ssa: runs/20261013-223427-053861/figure-models/tomato/single/source_single_m256/ssa__branch=single__encoder=dino_register__src=lettuce__tgt=tomato__seed=42__m=256__r=32__k=70.pth
+  multi_ssa: runs/20261013-223427-053861/figure-models/tomato/multi/source_multi_m256/ssa__branch=multi__encoder=dino_register__src=lettuce__tgt=tomato__seed=42__m=256__r=32__k=70.pth
+  single_runs: runs/20261013-223427-053861/tomato/cache/fig3_3/single/source_single_m256/ssa__branch=single__encoder=dino_register__src=lettuce__tgt=tomato__seed={seed}__m=256__r=32__k=70.pth
+  single_proxy_runs: runs/20261013-223427-053861/tomato/cache/fig3_5/single/source_single_m256/ssa__branch=single__encoder=dino_register__src=lettuce__tgt=tomato__seed={seed}__m=256__r=32__k=70.pth
+  single_ablation_full: runs/20261013-223427-053861/tomato_ablation/cache/fig3_3/single/source_single_m256/ssa__branch=single__encoder=dino_register__src=lettuce__tgt=tomato__seed={seed}__m=256__r=32__k=70.pth
+  single_ablation: runs/20261013-223427-053861/tomato_ablation/cache/fig3_6/single/source_single_m256/ssa_{mode}__seed={seed}__m=256__k=70__r=32.pth
+  multi_runs: runs/20261013-223427-053861/tomato/cache/fig3_3/multi/source_multi_m256/ssa__branch=multi__encoder=dino_register__src=lettuce__tgt=tomato__seed={seed}__m=256__r=32__k=70.pth
+  multi_proxy_runs: runs/20261013-223427-053861/tomato/cache/fig3_5/multi/source_multi_m256/ssa__branch=multi__encoder=dino_register__src=lettuce__tgt=tomato__seed={seed}__m=256__r=32__k=70.pth
+  multi_ablation_full: runs/20261013-223427-053861/tomato_ablation/cache/fig3_3/multi/source_multi_m256/ssa__branch=multi__encoder=dino_register__src=lettuce__tgt=tomato__seed={seed}__m=256__r=32__k=70.pth
+  multi_ablation: runs/20261013-223427-053861/tomato_ablation/cache/fig3_6/multi/source_multi_m256/ssa_{mode}__seed={seed}__m=256__k=70__r=32.pth
+Komatsuna:
+  single_ssa: runs/20261013-223427-053861/komatsuna/models/single/source_single_m256/ssa__branch=single__encoder=dino_register__src=lettuce__tgt=komatsuna__seed=42__m=256__r=32__k=70.pth
+  multi_ssa: runs/20261013-223427-053861/komatsuna/models/multi/source_multi_m256/ssa__branch=multi__encoder=dino_register__src=lettuce__tgt=komatsuna__seed=42__m=256__r=32__k=70.pth
+  single_runs: runs/20261013-223427-053861/komatsuna/models/single/source_single_m256/ssa__branch=single__encoder=dino_register__src=lettuce__tgt=komatsuna__seed={seed}__m=256__r=32__k=70.pth
+  multi_runs: runs/20261013-223427-053861/komatsuna/models/multi/source_multi_m256/ssa__branch=multi__encoder=dino_register__src=lettuce__tgt=komatsuna__seed={seed}__m=256__r=32__k=70.pth
+LAB-fullimage:
+  single_ssa: runs/20261013-223427-053861/lab/fullimage/single-ssa-k70.pth
+  multi_ssa: runs/20261013-223427-053861/lab/fullimage/multi-ssa-k70.pth
+LAB-crop:
+  single_ssa: runs/20261013-223427-053861/lab/crop/single-ssa-k70.pth
+  multi_ssa: runs/20261013-223427-053861/lab/crop/multi-ssa-k70.pth
+mustard:
+  multi_ssa: runs/20261013-223427-053861/gromo/mustard/lettuce/seed42/ssa.pth
+  snapshots: runs/20261013-223427-053861/gromo/mustard/lettuce
+  reference_runs: runs/20261013-223427-053861/gromo/mustard/{reference}/seed{seed}/ssa.pth
+okra:
+  multi_ssa: runs/20261013-223427-053861/gromo/okra/lettuce/seed42/ssa.pth
+  snapshots: runs/20261013-223427-053861/gromo/okra/lettuce
+  reference_runs: runs/20261013-223427-053861/gromo/okra/{reference}/seed{seed}/ssa.pth
+radish:
+  multi_ssa: runs/20261013-223427-053861/gromo/radish/lettuce/seed42/ssa.pth
+  snapshots: runs/20261013-223427-053861/gromo/radish/lettuce
+  reference_runs: runs/20261013-223427-053861/gromo/radish/{reference}/seed{seed}/ssa.pth
+wheat:
+  multi_ssa: runs/20261013-223427-053861/gromo/wheat/lettuce/seed42/ssa.pth
+  snapshots: runs/20261013-223427-053861/gromo/wheat/lettuce
+  reference_runs: runs/20261013-223427-053861/gromo/wheat/{reference}/seed{seed}/ssa.pth

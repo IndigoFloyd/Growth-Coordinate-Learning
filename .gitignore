@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+.venv*/
+results/
+data/weights/
+
+runs/
+data/current-run.json
+data/source-selection.json
+data/gromo-population.npz
+data/gromo-updates.csv
+data/scaling-traits.csv
+weights/
+data/artwork/
+data/gromo-population.json
+data/ssa-selection.json

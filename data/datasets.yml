@@ -1,0 +1,68 @@
+datasets:
+- name: Tomato
+  path: /home/a202server/Projects/AutoSeg/processed_tomato_dataset
+  groundtruth: groundtruth/tomato.json
+  latents: '{data_root}/latents/{encoder}/Tomato'
+  targets:
+  - height
+  - fw_plant
+  - leaf_area
+  format: json
+- name: Komatsuna
+  path: /mnt/data/komatsuna
+  groundtruth: BYfilename
+  latents: '{data_root}/latents/{encoder}/Komatsuna'
+  targets:
+  - timestamp
+  format: time_index
+- name: Lettuce
+  path: /mnt/data/lettuce_original
+  groundtruth: groundtruth/lettuce.json
+  latents: '{data_root}/latents/{encoder}/Lettuce'
+  targets:
+  - FreshWeightShoot
+  - DryWeightShoot
+  - Height
+  - Diameter
+  - LeafArea
+  format: json
+- name: LAB-fullimage
+  latents: '{data_root}/latents/{encoder}/LAB-Lettuce-Original-FullImage'
+  format: lab_fullimage
+  targets: []
+- name: LAB-crop
+  latents: '{data_root}/latents/{encoder}/LAB-Lettuce-Original'
+  format: lab_crop
+  targets: []
+- name: mustard
+  format: gromo
+  path: /mnt/data/GroMo25
+  groundtruth: /mnt/data/GroMo25/Ground Truth/mustard_train.csv
+  latents: '{data_root}/supplement-2/vectors/train/{encoder}'
+  targets:
+  - age
+  - leaf_count
+- name: okra
+  format: gromo
+  path: /mnt/data/GroMo25
+  groundtruth: /mnt/data/GroMo25/Ground Truth/okra_train.csv
+  latents: '{data_root}/supplement-2/vectors/train/{encoder}'
+  targets:
+  - age
+  - leaf_count
+- name: radish
+  format: gromo
+  path: /mnt/data/GroMo25
+  groundtruth: /mnt/data/GroMo25/Ground Truth/radish_train.csv
+  latents: '{data_root}/supplement-2/vectors/train/{encoder}'
+  targets:
+  - age
+  - leaf_count
+- name: wheat
+  format: gromo
+  path: /mnt/data/GroMo25
+  groundtruth: /mnt/data/GroMo25/Ground Truth/wheat_train.csv
+  latents: '{data_root}/supplement-2/vectors/train/{encoder}'
+  targets:
+  - age
+  - leaf_count
