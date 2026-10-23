@@ -18,13 +18,31 @@ The experiments use lettuce and tomato from the WUR Autonomous Greenhouse Challe
 
 LAB-Lettuce is available at [Mendeley Data](https://doi.org/10.17632/b82wmb5yj6.1). Please obtain the other datasets from the original sources cited in the paper.
 
-The scripts start from frozen backbone features. Configure image, feature, and annotation paths in `data/datasets.yml`. The feature root can also be set with:
+Configure image (`path`), feature (`latents`), and annotation (`groundtruth`) paths in `data/datasets.yml`. The feature root can also be set with:
 
 ```bash
 export PFAL_REPRESENTATION_DATA_ROOT=/path/to/features
 ```
 
-Image-to-backbone feature extraction is outside these training scripts. Set checkpoint paths and seed templates in `data/models.yml` to the models you train below.
+Set checkpoint paths and seed templates in `data/models.yml` to the models you train below.
+
+## Feature extraction
+
+Extract the DINOv2 features used for source training and target adaptation:
+
+```bash
+python ExtractFeatures.py --dataset Lettuce
+python ExtractFeatures.py --dataset Tomato
+python ExtractFeatures.py --dataset Komatsuna
+```
+
+Use `--encoder clip_vitb32`, `mae`, `vae`, or `resnet50` to extract the other backbones needed by Fig3 and Tables 1–2. The same entry point accepts `LAB-fullimage`, `LAB-crop`, `mustard`, `okra`, `radish`, `wheat`, or a new dataset configured in the YAML file. New CSV datasets need a `filename` column relative to their image root; trait columns are needed only for subsequent supervised training or evaluation.
+
+The encoder weights are downloaded on first use; model revisions and library versions are pinned. Images are converted to RGB and processed one at a time with the paper's backbone-specific preprocessing. DINOv2 excludes the CLS and four register tokens and retains the original non-affine final LayerNorm. Token outputs are saved for the existing loader to pool; GroMo25 saves compact raw and LayerNorm-pooled vectors. JSON/CSV metadata selects the image set; trait values are not used by the encoder. Extraction defaults to the deterministic numerical settings used in training, with TF32 disabled. The supplied GroMo25 configurations retain that experiment's original TF32 convolution setting; no manual thread settings are needed.
+
+Image subdirectories are preserved in the feature directory. LAB full images named `IPCamN_YYYY-MM-DD_HHMMSS_mmm.jpg` are mapped to `IPCamN/YYYY-MM-DD/HHMMSS_mmm.pt`; LAB crops retain `layer/side/grid/camera/timestamp.pt`. The default outputs go directly to the configured `latents` path, so the training commands below can load them without conversion.
+
+Use `--device cpu` when needed, `--model-path` for a local Hugging Face model directory, or `--checkpoint` for an existing DINOv2/ResNet50 state dictionary. `--output-dir` selects a separate feature directory. Existing features are kept unless `--overwrite` is supplied.
 
 ## Training
 
@@ -72,3 +90,7 @@ Figures 1, 2, and 7 are manually composed; Supplementary Tables S2–S4 describe
 ## Reproducibility
 
 A fresh run from frozen backbone features retrained 196 models and recomputed all 15 numerical tables and 10 computed figures in the stated environment. All 576 manuscript decimals matched at the reported precision, and all 20 coverage counts matched. Numerical settings are handled internally; no thread configuration is required.
+
+RGB extraction was checked separately: all 388 lettuce, 476 tomato, and 300 komatsuna DINOv2 tensors were regenerated from images and matched the archived tensors bit for bit in the stated CUDA environment. An image-to-feature-to-MLP-to-SSA smoke test also passed. LAB and all four GroMo25 crops passed sample-level DINOv2 feature comparisons.
+
+MAE masks are seeded by each image's relative path for repeatable extraction. Historical MAE caches did not record those masks; SD-VAE and ResNet50 also show numerical differences from archived feature files in spot checks. Exact reproduction of the reported baseline values therefore still uses the archived features.

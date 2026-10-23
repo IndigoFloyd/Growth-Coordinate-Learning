@@ -214,3 +214,33 @@ def image_paths(name, metadata, config=CONFIG):
             index.setdefault(path.relative_to(directory).with_suffix("").as_posix(), path)
             index.setdefault(path.stem, path)
     return [index[key] if key in index else index[Path(key).stem] for key in metadata.key]
+
+
+def extraction_inputs(name, encoder="dino_register", config=CONFIG, output_dir=None):
+    """Map source images to feature files without requiring features to exist."""
+    cfg = dataset_config(name, config)
+    root = _path(cfg["path"], config, encoder)
+    output = Path(output_dir) if output_dir is not None else _path(cfg["latents"], config, encoder)
+    kind = cfg.get("format", "json")
+    if kind in ("csv", "gromo"):
+        metadata = load_metadata(name, encoder, config)
+        paths = [root / key for key in metadata.key]
+    else:
+        paths = sorted(p for p in root.rglob("*") if p.is_file() and
+                       p.suffix.lower() in {".png", ".jpg", ".jpeg", ".bmp", ".tif", ".tiff"})
+    if kind == "json":
+        records = _records(_path(cfg["groundtruth"], config, encoder))
+        paths = [p for p in paths if p.relative_to(root).with_suffix("").as_posix() in records
+                 or p.stem in records]
+    inputs = []
+    for image in paths:
+        relative = image.relative_to(root)
+        key = relative.as_posix()
+        if kind == "lab_fullimage" and len(relative.parts) == 1:
+            match = re.fullmatch(r"(IPCam\d+)_(\d{4}-\d{2}-\d{2})_(\d{6}_\d{3})", image.stem)
+            if match is None:
+                raise ValueError(f"Expected IPCamN_YYYY-MM-DD_HHMMSS_mmm image: {image.name}")
+            cam, day, stamp = match.groups()
+            relative = Path(cam) / day / stamp
+        inputs.append((image, output / relative.with_suffix(".pt"), key))
+    return inputs

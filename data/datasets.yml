@@ -27,14 +27,17 @@ datasets:
   - LeafArea
   format: json
 - name: LAB-fullimage
+  path: /home/a202server/Projects/AutoSeg/dataset_flattened_all
   latents: '{data_root}/latents/{encoder}/LAB-Lettuce-Original-FullImage'
   format: lab_fullimage
   targets: []
 - name: LAB-crop
+  path: /home/a202server/Projects/AutoSeg/anchor_crops_500
   latents: '{data_root}/latents/{encoder}/LAB-Lettuce-Original'
   format: lab_crop
   targets: []
 - name: mustard
+  cudnn_tf32: true
   format: gromo
   path: /mnt/data/GroMo25
   groundtruth: /mnt/data/GroMo25/Ground Truth/mustard_train.csv
@@ -43,6 +46,7 @@ datasets:
   - age
   - leaf_count
 - name: okra
+  cudnn_tf32: true
   format: gromo
   path: /mnt/data/GroMo25
   groundtruth: /mnt/data/GroMo25/Ground Truth/okra_train.csv
@@ -51,6 +55,7 @@ datasets:
   - age
   - leaf_count
 - name: radish
+  cudnn_tf32: true
   format: gromo
   path: /mnt/data/GroMo25
   groundtruth: /mnt/data/GroMo25/Ground Truth/radish_train.csv
@@ -59,6 +64,7 @@ datasets:
   - age
   - leaf_count
 - name: wheat
+  cudnn_tf32: true
   format: gromo
   path: /mnt/data/GroMo25
   groundtruth: /mnt/data/GroMo25/Ground Truth/wheat_train.csv
